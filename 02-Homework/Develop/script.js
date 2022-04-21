@@ -45,17 +45,20 @@ function generatePassword() {
 
     if (lowerCase) {
       passwordCharKey.push.apply(passwordCharKey, letters);
-      // console.log(passwordCharKey);
+      console.log(passwordCharKey);
+      console.log(letters);
     }
     let upperCase = confirm(
       "Use uppercase letters? press OK for yes or press Cancel for No"
-    )
-    
+    );
+
     if (upperCase) {
-      passwordCharKey.push.apply(passwordCharKey, letters.toUppercase());
+      passwordCharKey.push.apply(
+        passwordCharKey,
+        letters.map((letter) => letter.toUpperCase())
+      );
       // console.log(passwordCharKey);
-    
-    ;
+    }
   }
 }
 
