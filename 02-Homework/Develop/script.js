@@ -25,11 +25,11 @@ const numbers = ["1234567890"]; //10 chars
 const specials = ["!#$%&()*+,-./:;<=>?@[]^_`{|}~"]; //29 chars
 // console.log(specials[0].length);
 //removed space, double quotes, single quotes to avoid bugs with program.
-let passwordCharKey = [];
+let passwordChar = [];
 
 function generatePassword() {
   const passwordLength = +prompt(
-    "Please select the length of your password. Must be between 8 characters and no more than 128 characters. 8 <= length < 128"
+    "Please select the length of your password. Must be between 8 characters and no more than 128 characters. 8 <= length <= 128"
   );
   if (isNaN(passwordLength) || passwordLength < 8 || passwordLength > 128) {
     alert(
@@ -38,33 +38,59 @@ function generatePassword() {
     generatePassword();
   } else {
     //once user selects password length and passes following criteria, proceed with further prompts selecting character types.
-    let lowerCase = confirm(
+    let lcPrompt = confirm(
       "Use lowercase letters? press OK for yes or press Cancel for No"
     );
     //returns boolean. can use for if/else checks to proceed to next prompt
 
-    if (lowerCase) {
-      passwordCharKey.push.apply(passwordCharKey, letters);
-      console.log(passwordCharKey);
-      console.log(letters);
+    if (lcPrompt) {
+      passwordChar.push.apply(passwordChar, letters);
+      console.log(passwordChar);
     }
-    let upperCase = confirm(
+    let ucPrompt = confirm(
       "Use uppercase letters? press OK for yes or press Cancel for No"
     );
 
-    if (upperCase) {
-      passwordCharKey.push.apply(
-        passwordCharKey,
+    if (ucPrompt) {
+      passwordChar.push.apply(
+        passwordChar,
         letters.map((letter) => letter.toUpperCase())
       );
-      // console.log(passwordCharKey);
+      console.log(passwordChar);
     }
+
+    let spPrompt = confirm(
+      "Use Special characters? !#$%&()*+,-./:;<=>?@[]^_`{|}~ press OK for yes or press Cancel for No"
+    );
+
+    if (spPrompt) passwordChar.push.apply(passwordChar, specials);
+    console.log(passwordChar);
+  }
+
+  //input validation - check at least one char type selected or empty array.
+
+  if (passwordChar.length === 0) {
+    alert(
+      "Please select at least one character type or else no password will be generated."
+    );
+    generatePassword();
+  } else {
+    passwordChar = passwordChar.flatMap((cSet) => cSet.split(""));
+    // console.log(passwordChar);
+    let passwordKey = "";
+    for (let i = 0; i < passwordLength; i++) {
+      passwordKey +=
+        passwordChar[Math.floor(Math.random() * passwordChar.length)];
+    }
+    return passwordKey;
   }
 }
 
 // Write password to the #password input
 function writePassword() {
-  const password = generatePassword();
+  //reset previous selected password characters
+  passwordChar = [];
+  let password = generatePassword();
   const passwordText = document.querySelector("#password");
 
   passwordText.value = password;
