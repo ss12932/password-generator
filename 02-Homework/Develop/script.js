@@ -30,21 +30,26 @@ function generatePassword() {
   const passwordLength = +prompt(
     "Please select the length of your password. Must be between 8 characters and no more than 128 characters. 8 <= length < 128"
   );
-  if (
-    typeof passwordLength === NaN ||
-    passwordLength < 8 ||
-    passwordLength > 128
-  ) {
+  if (isNaN(passwordLength) || passwordLength < 8 || passwordLength > 128) {
     alert(
       "Please select a password length with the following requirements: Must be between 8 characters and no more than 128 characters"
     );
+    generatePassword();
+  } else {
+    //once user selects password length and passes following criteria, proceed with further prompts selecting character types.
+    let lowercase = confirm(
+      "Use lowercase letters? press OK for yes or press Cancel for No"
+    );
+    //returns boolean. can use for if/else checks to proceed
+
+    if ()
   }
 }
 
 // Write password to the #password input
 function writePassword() {
-  var password = generatePassword();
-  var passwordText = document.querySelector("#password");
+  const password = generatePassword();
+  const passwordText = document.querySelector("#password");
 
   passwordText.value = password;
 }
