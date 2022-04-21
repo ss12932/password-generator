@@ -35,7 +35,6 @@ function generatePassword() {
     alert(
       "Please select a password length with the following requirements: Must be between 8 characters and no more than 128 characters"
     );
-    generatePassword();
   } else {
     //once user selects password length and passes following criteria, proceed with further prompts selecting character types.
     let lcPrompt = confirm(
@@ -65,30 +64,30 @@ function generatePassword() {
 
     if (spPrompt) passwordChar.push.apply(passwordChar, specials);
     console.log(passwordChar);
-  }
 
-  //input validation - check at least one char type selected or empty array.
+    //input validation - check at least one char type selected or empty array.
 
-  if (passwordChar.length === 0) {
-    alert(
-      "Please select at least one character type or else no password will be generated."
-    );
-    generatePassword();
-  } else {
-    passwordChar = passwordChar.flatMap((cSet) => cSet.split(""));
-    // console.log(passwordChar);
-    let passwordKey = "";
-    for (let i = 0; i < passwordLength; i++) {
-      passwordKey +=
-        passwordChar[Math.floor(Math.random() * passwordChar.length)];
+    if (passwordChar.length === 0) {
+      alert(
+        "Please select at least one character type or else no password will be generated."
+      );
+      generatePassword();
+    } else {
+      passwordChar = passwordChar.flatMap((cSet) => cSet.split(""));
+      console.log(passwordChar);
     }
-    return passwordKey;
   }
+  let passwordKey = "";
+  for (let i = 0; i < passwordLength; i++) {
+    passwordKey +=
+      passwordChar[Math.floor(Math.random() * passwordChar.length)];
+  }
+  return passwordKey;
 }
 
 // Write password to the #password input
 function writePassword() {
-  //reset previous selected password characters
+  //clear previous selected password characters
   passwordChar = [];
   let password = generatePassword();
   const passwordText = document.querySelector("#password");
