@@ -24,7 +24,8 @@ const letters = ["abcdefghijklmnopqrstuvwxyz"]; //26 chars
 const numbers = ["1234567890"]; //10 chars
 const specials = ["!#$%&()*+,-./:;<=>?@[]^_`{|}~"]; //29 chars
 // console.log(specials[0].length);
-//removed space, double quotes, single quotes
+//removed space, double quotes, single quotes to avoid bugs with program.
+let passwordCharKey = [];
 
 function generatePassword() {
   const passwordLength = +prompt(
@@ -37,12 +38,13 @@ function generatePassword() {
     generatePassword();
   } else {
     //once user selects password length and passes following criteria, proceed with further prompts selecting character types.
-    let lowercase = confirm(
+    let lowerCase = confirm(
       "Use lowercase letters? press OK for yes or press Cancel for No"
     );
-    //returns boolean. can use for if/else checks to proceed
+    //returns boolean. can use for if/else checks to proceed to next prompt
 
-    if ()
+    if (lowerCase) passwordCharKey.apply.push(letters);
+    console.log(passwordCharKey);
   }
 }
 
