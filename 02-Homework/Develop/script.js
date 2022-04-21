@@ -43,8 +43,19 @@ function generatePassword() {
     );
     //returns boolean. can use for if/else checks to proceed to next prompt
 
-    if (lowerCase) passwordCharKey.apply.push(letters);
-    console.log(passwordCharKey);
+    if (lowerCase) {
+      passwordCharKey.push.apply(passwordCharKey, letters);
+      // console.log(passwordCharKey);
+    }
+    let upperCase = confirm(
+      "Use uppercase letters? press OK for yes or press Cancel for No"
+    )
+    
+    if (upperCase) {
+      passwordCharKey.push.apply(passwordCharKey, letters.toUppercase());
+      // console.log(passwordCharKey);
+    
+    ;
   }
 }
 
